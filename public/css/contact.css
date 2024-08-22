@@ -1,0 +1,185 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Pink Theme */
+body {
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #333;
+    background-color: #f8f0f0;
+}
+
+/* Navigation Bar */
+.navbar {
+    background-color: rgb(232, 116, 136); /* Pink background */
+    padding: 10px 0;
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+}
+
+.navbar-menu li {
+    margin-left: 20px;
+}
+
+.navbar-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.navbar-menu a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+
+/* Contact Form and Map Container */
+.contact-map-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Space between form and map */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+}
+
+/* Contact Form */
+.contact-form {
+    flex: 1;
+    min-width: 300px;
+    max-width: 48%; /* Adjust max-width to fit side-by-side */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-form h2 {
+    margin-bottom: 20px;
+    color: rgb(232, 116, 136); /* Pink text */
+}
+
+.contact-form .textbox {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.contact-form textarea {
+    resize: vertical; /* Allow vertical resizing */
+    height: 170px; /* Increased height for better appearance */
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(232, 116, 136); /* Pink background */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: rgb(200, 100, 120); /* Slightly darker pink on hover */
+}
+
+/* Map */
+.map-container {
+    flex: 1;
+    max-width: 48%; /* Adjust max-width to fit side-by-side */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow effect */
+    border-radius: 8px;
+    overflow: hidden; /* Ensures the border-radius applies to the iframe */
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .contact-map-container {
+        flex-direction: column; /* Stack vertically on small screens */
+    }
+
+    .contact-form,
+    .map-container {
+        width: 100%;
+        max-width: none; /* Remove max-width restriction */
+    }
+}
+
+/* Footer Section */
+.footer {
+    background-color: rgb(232, 116, 136); 
+    color: white; 
+    text-align: center;
+    font-size: 1rem;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+.social-icons {
+    margin-top: 10px;
+}
+
+.social-icon {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.social-icon img {
+    width: 24px;
+    height: 24px; 
+}
