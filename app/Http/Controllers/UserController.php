@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Laravel\Sanctum\HasApiTokens;
+
 
 class UserController extends Controller
 {
     // Show the form for creating a new user
     public function create()
     {
-        return view('userscreate'); // Updated to userscreate.blade.php
+        return view('userscreate');
     }
 
     // Store a newly created user in storage
@@ -106,7 +108,7 @@ class UserController extends Controller
         return view('login'); // Return the login view
     }
 
-    // Handle login requests
+    // Handle login requests and generate tokens
     public function loginPost(Request $request)
     {
         // Validate the login form input
@@ -116,28 +118,37 @@ class UserController extends Controller
         ]);
 
         // Attempt to log the user in
-        if (Auth::attempt($request->only('email', 'password'))) {
-            // Redirect to the intended page or homepage if successful
-            return redirect()->intended(route('home'));
+        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ])->withInput();
         }
 
-        // Redirect back with an error if authentication fails
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->withInput(); // Preserve input values
+        // Get authenticated user
+        $user = Auth::user();
+
+        // Generate token
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        // Redirect to the intended page or homepage if successful
+        return redirect()->intended(route('home'))->with('access_token', $token);
     }
 
-    // Handle logout requests
+    // Handle logout requests 
     public function logout(Request $request)
     {
-        Auth::logout();
-        
-        // Invalidate the session
-        $request->session()->invalidate();
-        
-        // Regenerate CSRF token
-        $request->session()->regenerateToken();
-        
+        // Ensure the user is authenticated
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            // Invalidate the session
+            Auth::logout();
+            $request->session()->invalidate();
+
+            // Regenerate CSRF token
+            $request->session()->regenerateToken();
+        }
+
         // Redirect to the login page
         return redirect()->route('login');
     }
@@ -162,7 +173,10 @@ class UserController extends Controller
         // Log the user in
         Auth::login($user);
 
+        // Generate token
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         // Redirect to the intended page or homepage
-        return redirect()->intended(route('home'));
+        return redirect()->intended(route('home'))->with('access_token', $token);
     }
 }

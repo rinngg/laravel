@@ -118,6 +118,16 @@ label {
     display: block;
 }
 
+/* Error Message Styling */
+.alert-danger {
+    background-color: #f8d7da; /* Light red background for errors */
+    color: #721c24; /* Dark red text color */
+    border: 1px solid #f5c6cb; /* Light red border */
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
 /* Adjustments for Small Screens */
 @media (max-width: 768px) {
     .container {

@@ -5,20 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
     <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
+    <script>
+        function submitLogoutForm(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            document.getElementById('logout-form').submit(); // Submit the form
+        }
+    </script>
 </head>
 <body>
+<body>
+    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="navbar-content">
-            <a href="/" class="navbar-brand">Career Training College</a>
+            <a href="{{ url('/home') }}" class="navbar-brand">Career Training College</a>
             <ul class="navbar-menu">
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('about') }}">About</a></li>
-                <li><a href="{{ route('events') }}">Events</a></li>
-                <li><a href="{{ route('contact') }}">Contact</a></li>
+                <li><a href="{{ url('/home') }}">Home</a></li>
+                <li><a href="{{ url('/about') }}">About</a></li>
+                <li><a href="{{ url('/events') }}">Events</a></li>
+                @if (Auth::check() && Auth::user()->isAdmin == 1)
+                    <li><a href="{{ route('users.create') }}">Create User</a></li>
+                @endif
+                <li><a href="{{ url('/contact') }}">Contact</a></li>
+                <!-- Add Logout Link -->
+                @if (Auth::check())
+                    <li>
+                        <a href="#" onclick="submitLogoutForm(event);" class="btn-custom btn-logout">Log Out</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>
-
     <div class="main-content">
         <div class="contact-map-container">
             <div class="contact-form">
